@@ -307,6 +307,7 @@
     "github.com/ethereum/go-ethereum/ethclient",
     "github.com/ethereum/go-ethereum/event",
     "github.com/ethereum/go-ethereum/rpc",
+    "github.com/golang/protobuf/proto",
     "github.com/lib/pq",
     "github.com/pkg/errors",
     "github.com/singnet/reputation/adapter/resources/protos",
