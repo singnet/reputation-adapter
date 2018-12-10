@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	crawler "github.com/singnet/reputation/adapter/crawler"
-	"github.com/singnet/reputation/adapter/server"
+	crawler "github.com/singnet/reputation-adapter/crawler"
+	"github.com/singnet/reputation-adapter/server"
 )
 
 func main() {
