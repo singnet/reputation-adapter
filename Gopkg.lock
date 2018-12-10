@@ -152,29 +152,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b04b52a2ad248220137e8a0309bdeda2ae59f6bf9792fa3c4160155cd2998253"
+  digest = "1:079d9c8ab6fc5e25ca1f4ab4912b96561a86c61a87ef71fa9e6b9d2543721a1f"
   name = "github.com/singnet/reputation"
-  packages = [
-    "adapter/crawler",
-    "adapter/database",
-    "adapter/resources/contracts/mpe",
-    "adapter/resources/protos",
-    "adapter/server",
-  ]
+  packages = ["adapter/resources/protos"]
   pruneopts = "UT"
   revision = "45d61738c69fb03229135774711b53fdd5f1fe3d"
-
-[[projects]]
-  branch = "master"
-  digest = "1:557888eba4166ad8dfe957f5d4da8fdcbb39d44e3634cd4c5a672225be3db366"
-  name = "github.com/singnet/reputation-adapter"
-  packages = [
-    "database",
-    "resources/contracts/mpe",
-    "resources/protos",
-  ]
-  pruneopts = "UT"
-  revision = "b3dc7c0fe26a9cfdda0b300d2f9d808ab605e787"
 
 [[projects]]
   branch = "master"
@@ -325,15 +307,9 @@
     "github.com/ethereum/go-ethereum/ethclient",
     "github.com/ethereum/go-ethereum/event",
     "github.com/ethereum/go-ethereum/rpc",
-    "github.com/golang/protobuf/proto",
     "github.com/lib/pq",
     "github.com/pkg/errors",
-    "github.com/singnet/reputation-adapter/database",
-    "github.com/singnet/reputation-adapter/resources/contracts/mpe",
-    "github.com/singnet/reputation-adapter/resources/protos",
-    "github.com/singnet/reputation/adapter/crawler",
     "github.com/singnet/reputation/adapter/resources/protos",
-    "github.com/singnet/reputation/adapter/server",
     "google.golang.org/grpc",
     "google.golang.org/grpc/credentials",
     "google.golang.org/grpc/testdata",
