@@ -24,11 +24,18 @@
 #   go-tests = true
 #   unused-packages = true
 
+required = [
+    "github.com/golang/protobuf/protoc-gen-go",
+]
 
 [[constraint]]
   name = "github.com/ethereum/go-ethereum"
   version = "1.8.11"
-  
+
+[[constraint]]
+  name = "github.com/golang/protobuf"
+  version = "1.2.0"
+
 [[constraint]]
   name = "github.com/lib/pq"
   version = "1.0.0"
