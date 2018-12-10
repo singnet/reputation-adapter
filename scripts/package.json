@@ -1,0 +1,21 @@
+{
+  "name": "reputation-mpe-adapter",
+  "version": "1.0.0",
+  "author": "Stichting SingularityNET",
+  "license": "MIT",
+  "scripts": {
+    "abigen": "sh abigen.sh",
+    "prepare-go": "sh prepare.sh",
+    "ganache": "node_modules/.bin/ganache-cli -p 9545",
+    "compile": "sh scripts/compile.sh",
+    "deploy": "sh scripts/deploy.sh"
+  },
+  "dependencies": {
+    "singularitynet-platform-contracts": "https://github.com/singnet/platform-contracts.git#v0.2.4",
+    "singularitynet-token-contracts": "2.0.0"
+  },
+  "devDependencies": {
+    "ganache-cli": "6.1.8",
+    "underscore-cli": "0.2.19"
+  }
+}
