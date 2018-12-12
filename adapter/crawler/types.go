@@ -1,4 +1,4 @@
-package controller
+package crawler
 
 import (
 	"math/big"
