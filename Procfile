@@ -1,1 +1,1 @@
-web: go run main.go
+web: reputation-adapter-linux-amd64

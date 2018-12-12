@@ -54,7 +54,7 @@ required = [
   unused-packages = true
 
 [metadata.heroku]
-  root-package = "github.com/singnet/reputation-adapter"
+  root-package = "github.com/singnet/reputation-adapter/adapter"
   go-version = "1.11.2"
-  ensure = "false"
+  ensure = "true"
   install = [ "./..." ]
