@@ -166,6 +166,20 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:2af1b26b14a04000b90139cec0c78d1eae88d726541292e5288b37728613853f"
+  name = "github.com/singnet/reputation-adapter"
+  packages = [
+    "adapter/crawler",
+    "adapter/database",
+    "adapter/server",
+    "resources/contracts/mpe",
+    "resources/protos",
+  ]
+  pruneopts = "UT"
+  revision = "3c32c1cc93a3bae5fb74b0e58a71084f5509caa6"
+
+[[projects]]
+  branch = "master"
   digest = "1:685fdfea42d825ebd39ee0994354b46c374cf2c2b2d97a41a8dee1807c6a9b62"
   name = "github.com/syndtr/goleveldb"
   packages = [
@@ -317,6 +331,11 @@
     "github.com/golang/protobuf/protoc-gen-go",
     "github.com/lib/pq",
     "github.com/pkg/errors",
+    "github.com/singnet/reputation-adapter/adapter/crawler",
+    "github.com/singnet/reputation-adapter/adapter/database",
+    "github.com/singnet/reputation-adapter/adapter/server",
+    "github.com/singnet/reputation-adapter/resources/contracts/mpe",
+    "github.com/singnet/reputation-adapter/resources/protos",
     "github.com/singnet/reputation/adapter/resources/protos",
     "google.golang.org/grpc",
     "google.golang.org/grpc/credentials",
