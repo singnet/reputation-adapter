@@ -53,12 +53,6 @@ required = [
   go-tests = true
   unused-packages = true
 
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/singnet/reputation-adapter"
-
-
 [metadata.heroku]
   root-package = "github.com/singnet/reputation-adapter/adapter"
   go-version = "1.11.2"
