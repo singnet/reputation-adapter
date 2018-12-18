@@ -1,0 +1,13 @@
+#!/bin/bash
+set -ex
+
+PARENT_PATH=$(dirname $(cd $(dirname $0); pwd -P))
+
+pushd $PARENT_PATH/resources/blockchain
+yarn install
+popd
+
+pushd $PARENT_PATH/resources/blockchain/node_modules/singularitynet-platform-contracts 
+npm install 
+npm run compile
+popd

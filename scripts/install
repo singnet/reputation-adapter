@@ -1,0 +1,35 @@
+#!/bin/bash
+set -ex
+
+PARENT_PATH=$(dirname $(cd $(dirname $0); pwd -P))
+
+pushd $PARENT_PATH
+
+# Go dependencies
+dep ensure -v
+
+# install blockchain dependencies
+bash scripts/install-blockchain
+
+
+
+# install executable dependencies
+pushd vendor/github.com/ethereum/go-ethereum
+go install ./cmd/abigen
+popd
+
+pushd vendor/github.com/golang/protobuf
+go install ./protoc-gen-go
+popd
+
+## Go stubs from Ethereum ABI
+bash scripts/abigen
+
+## Generate go code from Protocol Buffer
+pushd resources/protos
+protoc --go_out=plugins=grpc:. *.proto
+popd
+
+go generate ./...
+
+popd

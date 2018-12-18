@@ -1,0 +1,18 @@
+##!/bin/bash
+set -ex
+
+PARENT_PATH=$(dirname $(cd $(dirname $0); pwd -P))
+ARTIFACT="$PARENT_PATH/resources/blockchain/node_modules/singularitynet-platform-contracts/build/contracts/MultiPartyEscrow.json"
+
+pushd $PARENT_PATH
+
+
+mkdir -p resources/contracts/mpe
+mkdir -p resources/abi/mpe
+
+resources/blockchain/node_modules/underscore-cli/bin/underscore select .abi --in $ARTIFACT --out $PARENT_PATH/resources/abi/mpe/MultiPartyEscrow.json  --outfmt text
+$GOPATH/bin/abigen --abi=$PARENT_PATH/resources/abi/mpe/MultiPartyEscrow.json --pkg=mpe --out=resources/contracts/mpe/MultiPartyEscrow.go
+
+echo "Moved go contracts packages in resources/contracts folder"
+
+popd

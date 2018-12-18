@@ -1,3 +1,7 @@
 node_modules
 .DS_Store
-adapter
+*.pb.go
+/vendor/
+/build/
+/resources/abi/mpe/
+/resources/contracts/mpe/

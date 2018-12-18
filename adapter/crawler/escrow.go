@@ -1,4 +1,4 @@
-package controller
+package crawler
 
 import (
 	"context"
@@ -16,8 +16,8 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/pkg/errors"
 
-	"github.com/singnet/reputation/adapter/database"
-	"github.com/singnet/reputation/adapter/resources/contracts/mpe"
+	"github.com/singnet/reputation-adapter/adapter/database"
+	"github.com/singnet/reputation-adapter/resources/contracts/mpe"
 )
 
 //Network config struct
