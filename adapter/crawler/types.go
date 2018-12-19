@@ -17,10 +17,11 @@ var (
 
 type ChannelOpen struct {
 	ChannelId  *big.Int
+	Nonce      *big.Int
 	Sender     common.Address
+	Signer     common.Address
 	Recipient  common.Address
 	GroupId    []byte
-	Signer     common.Address
 	Amount     *big.Int
 	Expiration *big.Int
 }
@@ -28,15 +29,17 @@ type ChannelOpen struct {
 //ChannelClaim event struct
 type ChannelClaim struct {
 	ChannelId      *big.Int
+	Nonce          *big.Int
 	Recipient      common.Address
 	ClaimAmount    *big.Int
 	SendBackAmount *big.Int
-	KeepAmpount    *big.Int
+	KeepAmount     *big.Int
 }
 
 //ChannelSenderClaim event struct
 type ChannelSenderClaim struct {
 	ChannelId   *big.Int
+	Nonce       *big.Int
 	ClaimAmount *big.Int
 }
 

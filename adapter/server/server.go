@@ -41,7 +41,7 @@ func newServer() *adapterService {
 func (s *adapterService) GetRatings(ctx context.Context, interval *pb.BlockInterval) (*pb.RatingSummary, error) {
 
 	ratings := []*pb.Rating{}
-	s.channelLog.GetAll()
+	s.channelLog.GetByTimeRange(interval.OpenTime, interval.CloseTime)
 	for _, channel := range s.channelLog.Log {
 		currInterval := &pb.BlockInterval{}
 		currInterval.OpenTime = channel.OpenTime
@@ -51,7 +51,7 @@ func (s *adapterService) GetRatings(ctx context.Context, interval *pb.BlockInter
 			Nonce:     channel.Nonce.Int64(),
 			Consumer:  channel.Sender.Hex(),
 			Provider:  channel.Recipient.Hex(),
-			Interval:  interval,
+			Interval:  currInterval,
 			Amount:    channel.ClaimAmount.Int64(),
 		}
 		ratings = append(ratings, nextRating)
@@ -84,6 +84,5 @@ func Start() {
 	fmt.Println("Running at localhost:", *port)
 	grpcServer := grpc.NewServer(opts...)
 	pb.RegisterRatingServiceServer(grpcServer, newServer())
-	//pb.RegisterRatingServiceServer(grpcServer, newServer())
 	grpcServer.Serve(lis)
 }

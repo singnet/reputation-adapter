@@ -1,0 +1,13 @@
+#!/bin/bash
+#This is helpful in development to install on Ubuntu/Debian postgres and create database and alter user and password
+set -ex
+
+apt-get update \
+  && apt-get install -y postgresql postgresql-contrib \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && /etc/init.d/postgresql start \
+  && postgres -i psql -c "ALTER USER postgres PASSWORD 'postgres';" -U postgres \   
+  && postgres -i psql -c 'drop database if exists "postgres";' -U postgres \
+  && postgres -i psql -c 'create database "postgres" OWNER postgres;' -U postgres \
+  && postgres -i psql -c 'create database "postgres" OWNER postgres;' -U postgres

@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	pb "github.com/singnet/reputation/adapter/resources/protos"
+	pb "github.com/singnet/reputation-adapter/resources/protos"
 	"google.golang.org/grpc"
 )
 
@@ -13,7 +13,7 @@ func TestGetRatings(t *testing.T) {
 
 	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
 	defer conn.Close()
 

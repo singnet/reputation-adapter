@@ -203,6 +203,7 @@
   digest = "1:31162299b46522ce13b7836d17341c88817e87874c15d9c755e22140feb2718b"
   name = "golang.org/x/net"
   packages = [
+    "context",
     "http/httpguts",
     "http2",
     "http2/hpack",
@@ -308,16 +309,20 @@
   input-imports = [
     "github.com/ethereum/go-ethereum",
     "github.com/ethereum/go-ethereum/accounts/abi",
+    "github.com/ethereum/go-ethereum/accounts/abi/bind",
     "github.com/ethereum/go-ethereum/cmd/abigen",
     "github.com/ethereum/go-ethereum/common",
     "github.com/ethereum/go-ethereum/core/types",
     "github.com/ethereum/go-ethereum/crypto",
     "github.com/ethereum/go-ethereum/ethclient",
+    "github.com/ethereum/go-ethereum/event",
     "github.com/ethereum/go-ethereum/rpc",
+    "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/protoc-gen-go",
     "github.com/lib/pq",
     "github.com/pkg/errors",
     "github.com/singnet/reputation/adapter/resources/protos",
+    "golang.org/x/net/context",
     "google.golang.org/grpc",
     "google.golang.org/grpc/credentials",
     "google.golang.org/grpc/testdata",

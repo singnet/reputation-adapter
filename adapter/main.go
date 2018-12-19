@@ -5,6 +5,7 @@ import (
 	"log"
 
 	crawler "github.com/singnet/reputation-adapter/adapter/crawler"
+	"github.com/singnet/reputation-adapter/adapter/server"
 )
 
 func main() {
@@ -22,6 +23,6 @@ func main() {
 	c.Start()
 
 	// Grpc Server
-	//server.Start()
+	server.Start()
 
 }

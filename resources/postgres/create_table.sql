@@ -1,5 +1,3 @@
-
-
 CREATE TABLE channel(
 	channel_id	integer not null,
     nonce       integer not null,
@@ -8,5 +6,6 @@ CREATE TABLE channel(
     amount 		bigint not null,
     open_time   integer,
     close_time  integer,
+    is_closed   boolean DEFAULT false,
     PRIMARY KEY(channel_id, nonce)
 )

@@ -1,9 +1,11 @@
 package database
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"math/big"
+	"os"
 
 	"database/sql"
 
@@ -31,15 +33,15 @@ type Channel struct {
 	CloseTime   int64
 }
 
-//GetAll func
-func (l *ChannelLog) GetAll() {
-	queryStmt, err := l.DB.Prepare("SELECT * FROM channel;")
+//GetByTimeRange func
+func (l *ChannelLog) GetByTimeRange(start int64, end int64) {
+	queryStmt, err := l.DB.Prepare("select * from channel where is_closed=true and close_time between $1 and $2 order by close_time desc;")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	rows, err := queryStmt.Query()
+	rows, err := queryStmt.Query(start, end)
 	defer rows.Close()
 
 	var (
@@ -50,10 +52,11 @@ func (l *ChannelLog) GetAll() {
 		amount    int64
 		openTime  int64
 		closeTime int64
+		isClosed  bool
 	)
 	for rows.Next() {
 
-		err := rows.Scan(&channelId, &nonce, &sender, &recipient, &amount, &openTime, &closeTime)
+		err := rows.Scan(&channelId, &nonce, &sender, &recipient, &amount, &openTime, &closeTime, &isClosed)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -83,7 +86,6 @@ func (l *ChannelLog) Insert(nc *Channel, dryRun bool) error {
 	if !dryRun {
 		_, err := l.DB.Exec(qry, nc.ChannelId.Int64(), nc.Nonce.Int64(), nc.Sender.String(), nc.Recipient.String(), nc.ClaimAmount.Int64(), nc.OpenTime, nc.CloseTime)
 		if err != nil {
-			log.Fatal(err)
 			return err
 		}
 	}
@@ -95,10 +97,47 @@ func (l *ChannelLog) Insert(nc *Channel, dryRun bool) error {
 
 }
 
+//Update is a func
+func (l *ChannelLog) Update(nc *Channel, dryRun bool) error {
+	const qry = "UPDATE channel SET amount = $1, close_time = $2, is_closed = true WHERE channel_id = $3 AND nonce = $4 AND is_closed <> true;"
+
+	if !dryRun {
+		rows, err := l.DB.Exec(qry, nc.ClaimAmount.Int64(), nc.CloseTime, nc.ChannelId.Int64(), nc.Nonce.Int64()-1)
+
+		if err != nil {
+			return err
+		}
+
+		rowsAffected, err := rows.RowsAffected()
+		if rowsAffected < 1 {
+			return errors.New("Already present in local storage")
+		}
+	}
+
+	fmt.Printf("UPDATE channel SET amount = %s, close_time = %v, is_closed = true WHERE channel_id = %v AND nonce = %v; \n", nc.ClaimAmount, nc.CloseTime, nc.ChannelId, nc.Nonce)
+
+	return nil
+}
+
 //New function
 func (l *ChannelLog) New() {
 
-	connStr := "user=postgres password=postgres dbname=postgres sslmode=disable"
+	user := os.Getenv("POSTGRES_USR")
+	password := os.Getenv("POSTGRES_PSW")
+	dbname := os.Getenv("POSTGRES_DB")
+	if user == "" || password == "" || dbname == "" {
+		log.Fatal("Missing POSTGRES enviroment variables")
+	}
+	var buffer bytes.Buffer
+	buffer.WriteString("user=")
+	buffer.WriteString(user)
+	buffer.WriteString(" password=")
+	buffer.WriteString(password)
+	buffer.WriteString(" dbname=")
+	buffer.WriteString(dbname)
+	buffer.WriteString(" sslmode=disable")
+	connStr := buffer.String()
+
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal(err)

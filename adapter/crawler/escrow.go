@@ -91,7 +91,10 @@ func (e *Escrow) New(networkKey string) error {
 //Start func
 func (e *Escrow) Start() {
 	//Start db
-	//channelLog.New()
+	channelLog.New()
+	logs := e.getPastEvents(0)
+	e.update(logs)
+
 	//NOTICE: Will be removed if go-ethereum works with Kobvan in the future
 	//https://github.com/ethereum/go-ethereum/pull/18166
 
@@ -111,8 +114,6 @@ func (e *Escrow) Start() {
 	/* if lastBlock > channelLog.LastBlock {
 	logs := e.getPastEvents(channelLog.LastBlock)
 	} */
-	logs := e.getPastEvents(0)
-	e.update(logs)
 }
 
 //GetInfo is a func
@@ -162,7 +163,7 @@ func (e *Escrow) update(logs []types.Log) {
 
 			nextChannel := &database.Channel{
 				channelClaimEvent.ChannelId,
-				channel.Nonce,
+				channelClaimEvent.Nonce,
 				channel.Sender,
 				channelClaimEvent.Recipient,
 				channelClaimEvent.ClaimAmount,
@@ -170,8 +171,7 @@ func (e *Escrow) update(logs []types.Log) {
 				closeTime,
 			}
 
-			channelLog.Insert(nextChannel, true)
-			fmt.Printf("ChannelID: %s Nonce: %s\n", nextChannel.ChannelId, nextChannel.Nonce)
+			channelLog.Update(nextChannel, false)
 
 		case channelSenderClaimSigHash.Hex():
 			var channelSenderClaimEvent ChannelSenderClaim
@@ -188,7 +188,7 @@ func (e *Escrow) update(logs []types.Log) {
 
 			nextChannel := &database.Channel{
 				channelSenderClaimEvent.ChannelId,
-				channel.Nonce,
+				channelSenderClaimEvent.Nonce,
 				channel.Sender,
 				channel.Recipient,
 				channelSenderClaimEvent.ClaimAmount,
@@ -196,32 +196,32 @@ func (e *Escrow) update(logs []types.Log) {
 				closeTime,
 			}
 
-			channelLog.Insert(nextChannel, true)
-			fmt.Printf("ChannelID: %s Nonce: %s\n", nextChannel.ChannelId, nextChannel.Nonce)
+			channelLog.Update(nextChannel, false)
 
 		case channelExtendSigHash.Hex():
-			//fmt.Println("Channel Extend")
 		case channelAddFundsSigHash.Hex():
-			//fmt.Println("Channel Add Funds"
 		case channelOpenSigHash.Hex():
-			/*
-				var channelOpenEvent ChannelOpen
-				err := mpeAbi.Unpack(&channelOpenEvent, "ChannelOpen", vLog.Data)
-				if err != nil {
-					log.Fatal(err)
-				}
+			var channelOpenEvent ChannelOpen
+			err := e.ABI.Unpack(&channelOpenEvent, "ChannelOpen", vLog.Data)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-				channelOpenEvent.Sender = common.HexToAddress(vLog.Topics[1].Hex())
-				channelOpenEvent.Recipient = common.HexToAddress(vLog.Topics[2].Hex())
+			channelOpenEvent.Sender = common.HexToAddress(vLog.Topics[1].Hex())
+			channelOpenEvent.Recipient = common.HexToAddress(vLog.Topics[2].Hex())
 
-				fmt.Printf("\n\nChannel Open \n\n")
-				fmt.Printf("ChannelID: %s\n", channelOpenEvent.ChannelId)
-				fmt.Printf("Sender: %s\n", channelOpenEvent.Sender.Hex())
-				fmt.Printf("Recipient: %s\n", channelOpenEvent.Recipient.Hex())
-				fmt.Printf("Amount: %s\n", channelOpenEvent.Amount)
-				fmt.Printf("Expiration: %s\n", channelOpenEvent.Expiration)
+			nextChannel := &database.Channel{
+				channelOpenEvent.ChannelId,
+				channelOpenEvent.Nonce,
+				channelOpenEvent.Sender,
+				channelOpenEvent.Recipient,
+				big.NewInt(0),
+				openTime,
+				0,
+			}
 
-			*/
+			channelLog.Insert(nextChannel, false)
+
 		}
 
 	}
