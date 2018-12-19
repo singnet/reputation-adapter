@@ -8,9 +8,9 @@ import (
 )
 
 var (
-	channelOpenSigHash        = crypto.Keccak256Hash([]byte("ChannelOpen(uint256,address,address,bytes32,address,uint256,uint256)"))
-	channelClaimSigHash       = crypto.Keccak256Hash([]byte("ChannelClaim(uint256,address,uint256,uint256,uint256)"))
-	channelSenderClaimSigHash = crypto.Keccak256Hash([]byte("ChannelSenderClaim(uint256,uint256)"))
+	channelOpenSigHash        = crypto.Keccak256Hash([]byte("ChannelOpen(uint256,uint256,address,address,address,bytes32,uint256,uint256)"))
+	channelClaimSigHash       = crypto.Keccak256Hash([]byte("ChannelClaim(uint256,uint256,address,uint256,uint256,uint256)"))
+	channelSenderClaimSigHash = crypto.Keccak256Hash([]byte("ChannelSenderClaim(uint256,uint256,uint256)"))
 	channelExtendSigHash      = crypto.Keccak256Hash([]byte("ChannelExtend(uint256,uint256)"))
 	channelAddFundsSigHash    = crypto.Keccak256Hash([]byte("ChannelAddFunds(uint256,uint256)"))
 )

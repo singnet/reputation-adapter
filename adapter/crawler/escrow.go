@@ -42,7 +42,7 @@ type Escrow struct {
 var networks = map[string]Network{
 	"kovan": Network{
 		"https://kovan.infura.io",
-		common.HexToAddress("0xdd4292864063d0DA1F294AC65D74d55a44F4766C"),
+		common.HexToAddress("0x39f31ac7b393fe2c6660b95b878feb16ea8f3156"),
 		9424242,
 		0,
 	},
@@ -91,11 +91,11 @@ func (e *Escrow) New(networkKey string) error {
 //Start func
 func (e *Escrow) Start() {
 	//Start db
-	channelLog.New()
+	//channelLog.New()
 	//NOTICE: Will be removed if go-ethereum works with Kobvan in the future
 	//https://github.com/ethereum/go-ethereum/pull/18166
 
-	channelLog.GetAll()
+	//channelLog.GetAll()
 
 	/* 	lastBlockHex, err := e.CurrentBlockNumber()
 	   	if err != nil {
@@ -113,7 +113,6 @@ func (e *Escrow) Start() {
 	} */
 	logs := e.getPastEvents(0)
 	e.update(logs)
-
 }
 
 //GetInfo is a func

@@ -5,7 +5,6 @@ import (
 	"log"
 
 	crawler "github.com/singnet/reputation-adapter/adapter/crawler"
-	"github.com/singnet/reputation-adapter/adapter/server"
 )
 
 func main() {
@@ -13,16 +12,16 @@ func main() {
 	//Flags config
 	networkKey := flag.String("network", "kovan", "network. One of {mainnet, ropsten, kovan}")
 
-	//New Escrow Instance
-	escrow := &crawler.Escrow{}
-	err := escrow.New(*networkKey)
+	//New Escrow crawler Instance
+	c := &crawler.Escrow{}
+	err := c.New(*networkKey)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	//escrow.Start()
+	c.Start()
 
 	// Grpc Server
-	server.Start()
+	//server.Start()
 
 }
