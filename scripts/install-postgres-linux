@@ -1,13 +1,19 @@
 #!/bin/bash
 #This is helpful in development to install on Ubuntu/Debian postgres and create database and alter user and password
-set -ex
+# Installling
+echo "Installing..."
+sudo apt-get update
+sudo apt-get install -y postgresql postgresql-contrib 
+sudo apt-get clean
 
-apt-get update \
-  && apt-get install -y postgresql postgresql-contrib \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && /etc/init.d/postgresql start \
-  && postgres -i psql -c "ALTER USER postgres PASSWORD 'postgres';" -U postgres \   
-  && postgres -i psql -c 'drop database if exists "postgres";' -U postgres \
-  && postgres -i psql -c 'create database "postgres" OWNER postgres;' -U postgres \
-  && postgres -i psql -c 'create database "postgres" OWNER postgres;' -U postgres
+#Start postgres
+echo "Staring postgres instance..."
+sudo /etc/init.d/postgresql start 
+sudo -u postgres -i psql -c "ALTER USER postgres PASSWORD 'postgres';" -U postgres    
+#sudo -u postgres -i psql -c 'drop database if exists "postgres";' -U postgres
+#sudo -u postgres -i psql -c 'create database "postgres" OWNER postgres;' -U postgres
+
+#Create table
+echo "Creating tables..."
+sudo -u postgres -i psql -c "CREATE TABLE channel( channel_id integer not null, nonce integer not null, sender varchar(50) not null, recipient varchar(50) not null, amount bigint not null, open_time integer, close_time integer, is_closed boolean DEFAULT false, PRIMARY KEY(channel_id, nonce))" -U postgres    
+
