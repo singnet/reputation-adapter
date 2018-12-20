@@ -30,25 +30,22 @@ $ cd reputation-adapter
 $ ./scripts/install
 ```
 
-* Build reputation-adapter (on Linux)
-```bash
-$ ./scripts/build linux amd64
-```
+### Building
 
 * Build reputation-adapter (on MacOSX)
 ```bash
 $ ./scripts/build darwin amd64
 ```
 
+* Build reputation-adapter (on Linux)
+```bash
+$ ./scripts/build linux amd64
+```
+
+
 * Build reputation-adapter for Linux (with Docker)
 ```bash
 $ ./scripts/buildlinux
-```
-
-#### Run Deamon 
-
-```bash
-$ ./build/reputation-adapter-linux-amd64
 ```
 
 
@@ -56,3 +53,9 @@ $ ./build/reputation-adapter-linux-amd64
 
 Run a `postgresql` instance and run [this SQL query](https://github.com/singnet/reputation-adapter/blob/master/resources/postgres/create_table.sql) against 
 
+
+#### Run Deamon 
+
+```bash
+$ POSTGRES_USR=postgres_user POSTGRES_PSW=postgres_psw POSTGRES_DB=postgres_db ./build/reputation-adapter-linux-amd64
+```
