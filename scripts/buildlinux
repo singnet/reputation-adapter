@@ -6,7 +6,7 @@ PARENT_PATH=$(dirname $(cd $(dirname $0); pwd -P))
 
 pushd $PARENT_PATH
 mkdir -p build
-docker build -t --no-cache reputation-adapter-linux-amd64:latest resources/linuxbuild
+docker build --no-cache -t reputation-adapter-linux-amd64:latest resources/linuxbuild
 docker run --name linux-build reputation-adapter-linux-amd64:latest
 docker cp linux-build:/go/src/github.com/singnet/reputation-adapter/build/reputation-adapter-linux-amd64 ./build
 docker rm linux-build
